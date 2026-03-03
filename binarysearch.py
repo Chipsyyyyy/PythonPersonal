@@ -28,7 +28,7 @@ class Searcher:
     def createArray(self, num):
         array = []
         for i in range(num):
-            array.append((random.randint(1, 1000))) # Create an array with random integers ranging from 1 - 1000
+            array.append((random.randint(1, 100000))) # Create an array with random integers ranging from 1 - 1000
         return sorted(array) # Binary search only works on sorted arrays
 
 def main():       
