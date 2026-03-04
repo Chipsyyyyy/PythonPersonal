@@ -1,5 +1,7 @@
 import sqlite3
 
+# Initialise the Database and insert intial values
+
 con = sqlite3.connect("Store.db")
 cur = con.cursor()
 
@@ -24,34 +26,71 @@ cur = con.cursor()
 # print(all.fetchall())
 
 # cur.execute(f"DELETE FROM store WHERE id = 01") # Deleting rows
-#cur.execute(f"DELETE FROM users WHERE username = 'Chipsyyy'")
+# cur.execute(f"DELETE FROM users WHERE username = 'Chipsyyy'")
+# con.commit()
 
 # -------------------------------------------------------------------------------------------------------------------
 
 class Store:
-    def login(username):
-        usernamequery = "SELECT EXISTS(SELECT 1 FROM users WHERE username = ?)"
-    
-        cur.execute(usernamequery, (username,))
-    
-        usernameCheck = cur.fetchone()
-    
-        if not bool(usernameCheck[0]):
+
+    def register(self):
+        while True:
+            regUsername = input("Enter a username: ")
+            # Check if that username already exists in the database
+            usernameQuery = "SELECT EXISTS(SELECT 1 FROM users WHERE username = ?)"
+            
+            cur.execute(usernameQuery, (regUsername,))
+
+            usernameCheck = cur.fetchone()
+
+            if not bool(usernameCheck[0]):
+                regPassword = input("Enter a password: ")
+                regQuery = "INSERT INTO users VALUES(?, ?)"
+                cur.execute(regQuery, (regUsername, regPassword))
+                con.commit()
+                print("You've successfully registered!")
+                return False
+            else:
+                print(f"The usernmame: {regUsername} already exists! Please try again")
+
+    def login(self):
+        username = input("Enter your username: ")
+        password = input("Enter your password")
+
+        userquery = "SELECT EXISTS(SELECT 1 FROM users WHERE username = ? AND password = ?)"
+
+        cur.execute(userquery, (username, password))
+
+        userCheck = cur.fetchone()
+
+        if not bool(userCheck[0]):
             print("The username and password combination is wrong! Please try again")
         else:
-            pass #add password feature 
+            print(f"You are logged in as {username}")
 
+    def deleteUser(self):
+        delUsername = input("Which user do you want to delete? Enter their username: ")
+        
+        delUserQuery = "DELETE FROM users WHERE username = ?"
+        
+        print(f"User: {delUsername} has been deleted!")
 
-    def buy():
+        cur.execute(delUserQuery, (delUsername,))
+        con.commit()
+        
         pass
 
-    def restock():
+
+    def buy(self):
         pass
 
-    def addItem():
+    def restock(self):
         pass
 
-    def removeItem():
+    def addItem(self):
+        pass
+
+    def removeItem(self):
         pass
 
 class User:
@@ -61,10 +100,25 @@ class User:
         pass
 
 def main():
-    s1 = Store
-    username = input("Please enter your username: ")
-    s1.login(username)
-    pass
+    s1 = Store()
+    choice = int(input("""What do you want to do?
+                   1. Register
+                   2. Log in
+                   3. Delete User
+                   Choice: """))
+    
+    if choice == 1: 
+            s1.register()
+    elif choice == 2:
+            s1.login()
+    elif choice == 3:
+            s1.deleteUser() 
+    
+    # username = input("Please enter your )username: ")
+    # password = input("Please enter your password: ")
+    # s1.login(username, password)
+    #s1.register()
+    #s1.deleteUser()
 
 if __name__ == "__main__":
     main()
