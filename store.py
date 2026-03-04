@@ -5,8 +5,10 @@ import sqlite3
 con = sqlite3.connect("Store.db")
 cur = con.cursor()
 
-#cur.execute('CREATE TABLE store(id, name, price)')
+#cur.execute('CREATE TABLE store(id, name, price, stock)')
 #cur.execute('CREATE TABLE users(username, password)')
+#cur.execute(f"DROP TABLE IF EXISTS store") delete entire table
+#con.commit()
 
 #cur.execute("""
 #     INSERT INTO users VALUES
