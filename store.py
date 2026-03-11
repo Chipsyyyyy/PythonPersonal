@@ -1,5 +1,6 @@
 import sqlite3
 from tabulate import tabulate
+import tkinter as tk
 
 # Initialise the Database and insert intial values
 
@@ -8,7 +9,7 @@ cur = con.cursor()
 
 #cur.execute('CREATE TABLE items(id INTEGER PRIMARY KEY, name, price, quantity, category)')
 #cur.execute('CREATE TABLE users(username, password, type)')
-cur.execute('CREATE TABLE userinventory(username, items, quantity)')
+#cur.execute('CREATE TABLE userinventory(username, items, quantity)')
 #cur.execute(f"DROP TABLE IF EXISTS items") #delete entire table
 #con.commit()
 
@@ -29,11 +30,11 @@ cur.execute('CREATE TABLE userinventory(username, items, quantity)')
 #         ('Pork Belly', 40, 2, 'meat')
 #     """)
 
-cur.execute("""
-            INSERT INTO userinventory (username, items, quantity) VALUES
-            (Chipsyyy, Apple, 5)
-            """
-)
+# cur.execute("""
+#             INSERT INTO userinventory (username, items, quantity) VALUES
+#             (Chipsyyy, Apple, 5)
+#             """
+# )
 
 # con.commit() #commit() method stores the entries into the disk 
 
@@ -132,10 +133,7 @@ class Store:
             pass
     
     def buy(self):
-        df = pd.read_sql_query("SELECT * FROM items", con)
-        
-        print("\n--- Current Inventory ---")
-        print(tabulate(df, headers='keys', tablefmt='psql', showindex=False))
+        self.previewItems()
         
         while True:
             itemID = input("What would you like to purchase? (Enter the ID number): ")
@@ -234,14 +232,15 @@ class Store:
         print(f"{itemName} has successfully been removed")
 
     def previewItems(self):
-        df = pd.read_sql_query("SELECT * FROM items", con)
+        cur.execute("SELECT * FROM items")
+        query = cur.fetchall()
         
         print("\n--- Current Inventory ---")
-        print(tabulate(df, headers='keys', tablefmt='psql', showindex=False))
+        print(tabulate(query, headers='keys', tablefmt='psql', showindex=False))
 
 class User:
-    def __init__(self, name):
-        self.name = name
+    # def __init__(self, name):
+    #     self.name = name
 
     def createStore(self):
         self.store = Store()
@@ -259,11 +258,11 @@ class User:
             self.createStore().customerDashboard()
         pass
 
-class Admin(User):
-    pass
+# class Admin(User):
+#     pass
 
-class Customer(User):
-    pass
+# class Customer(User):
+#     pass
 
 def main():
     s1 = Store()
