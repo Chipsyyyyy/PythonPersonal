@@ -39,11 +39,28 @@ window.title("Simple App") # Title of the app
 
 # Listbox - List of items which the user can select one or more(?) 
 
-lb = tk.Listbox(window)
-lb.insert(1, "Python")
-lb.insert(2, "Java")
-lb.insert(3, "C++")
-lb.insert(4, "Any Other")
+# lb = tk.Listbox(window)
+# lb.insert(1, "Python")
+# lb.insert(2, "Java")
+# lb.insert(3, "C++")
+# lb.insert(4, "Any Other")
 
-lb.pack()
+# lb.pack()
+
+def register_window():
+    global counter
+    counter += 1
+    new_text = f"This button has been clicked {counter} times" 
+    label.configure(text=new_text)
+
+counter = 0
+
+label = tk.Label(window, text="Welcome to the Store Application")
+button = tk.Button(window, text="Register", command=register_window)
+# button = tk.Button(window, text="Log In")
+# button = tk.Button(window, text="Delete User")
+# button = tk.Button(window, text="Exit")
+
+label.pack(pady=20)
+button.pack(pady=10)
 window.mainloop() # Run the app

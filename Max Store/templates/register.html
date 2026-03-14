@@ -1,0 +1,24 @@
+<html>
+<body>
+    <h2>Create an Account</h2>
+    <form action="/register" method="POST">
+        <label>Username:</label><br>
+        <input type="text" name="username" required><br><br>
+        
+        <label>Password:</label><br>
+        <input type="password" name="password" required><br><br>
+
+        <label>Type:</label><br><br>
+    
+        <label for="admin">Admin</label>
+        <input type="radio" id="admin" name="type" value="admin"><br><br>
+        <label for="customer">Customer</label>
+        <input type="radio" id="customer" name="type" value="customer"><br><br>
+
+
+        <button type="submit">Register</button>
+    </form>
+    <br>
+    <a href="/">Back to Home</a>
+</body>
+</html>

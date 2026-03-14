@@ -1,6 +1,5 @@
 import sqlite3
 from tabulate import tabulate
-import tkinter as tk
 
 # Initialise the Database and insert intial values
 
