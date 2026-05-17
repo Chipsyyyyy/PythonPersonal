@@ -1,56 +1,62 @@
 import random
-import time
 
-class Searcher:
-    
-    start_time = time.perf_counter() # Time the search started
+def search(nums, target):
+    l = 0
+    r = len(nums) - 1
 
-    def binary_search(self, arr, num):
+    while l <= r:
+        mid = (l + r) // 2
+
+        if nums[mid] == target:
+            print(f"Target at index: {mid}")
+            return mid
         
-        low = 0
-        high = len(arr) - 1
-        
-        while low <= high:
+        if nums[mid] < target:
+            l = mid + 1
+        else:
+            r = mid - 1
+    print("Target is not present")   
+    return -1
 
-            mid = low + (high - low)//2
-
-            if arr[mid] == num:
-                return mid
-            
-            elif arr[mid] < num:
-                low = mid + 1
-
-            else:
-                high = mid - 1
-        return -1 
-    end_time = time.perf_counter() # Time when the search finished
+def mergeSort(nums):
+    if len(nums) <= 1:
+        return nums
     
-    def createArray(self, num):
-        array = []
-        for i in range(num):
-            array.append((random.randint(1, 100000))) # Create an array with random integers ranging from 1 - 1000
-        return sorted(array) # Binary search only works on sorted arrays
-
-def main():       
-    b1 = Searcher()
-
-    size = int(input("How many numbers do you want inside the array?: "))
-    array = b1.createArray(size)    
-
-    print(f"{array}")
-
-    x = int(input("What number do you want to search for?: "))
+    mid = len(nums) // 2
+    l = mergeSort(nums[:mid])
+    r= mergeSort(nums[mid:])
     
-    result = b1.binary_search(array, x)
+    return merge(l, r)
 
-    if result != -1:
-        print(f"Element is present at index:  {result}")
-    else:
-        print("Element is not present in array")
-    print(f"The time it took to complete was {b1.end_time - b1.start_time:.2f} seconds")
+def merge(left, right):
+    sorted_array = []   
+
+    i = j = 0
+
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            sorted_array.append(left[i])
+            i += 1
+        else:
+            sorted_array.append(right[j])
+            j += 1
     
+    sorted_array.extend(left[i:])
+    sorted_array.extend(right[j:])
+
+    return sorted_array
+
+
+
+def main():
+    nums = []
+    for _ in range(100):
+        num = random.randint(1, 100)
+        nums.append(num)
+    target = random.randint(1, 100)
+    print(mergeSort(nums))
+    print(target)
+    search(mergeSort(nums), target)
 
 if __name__ == "__main__":
     main()
-
-
