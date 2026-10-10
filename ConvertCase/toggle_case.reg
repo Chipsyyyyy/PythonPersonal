@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\ConvertCopy]
+@="Toggle Case and Copy"
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\ConvertCopy\command]
+@="\"C:\\Users\\maxwe\\AppData\\Local\\Python\\pythoncore-3.14-64\\pythonw.exe\" \"C:\\Users\\maxwe\\Documents\\GitHub\\PythonPersonal\\ConvertCase\\converttext.py\""
